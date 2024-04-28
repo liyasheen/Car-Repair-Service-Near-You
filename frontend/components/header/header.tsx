@@ -3,7 +3,7 @@ import { Flex, Spacer } from "@chakra-ui/react";
 export function Header() {
   return (
     <Flex
-      backgroundColor={"white"}
+      backgroundColor={"pink"}
       boxShadow={"sm"}
       top={0}
       padding={5}

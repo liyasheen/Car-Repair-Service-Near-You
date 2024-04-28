@@ -14,9 +14,21 @@ const theme = extendTheme(
     styles: {
       global: ({ theme }: { theme: Theme }) => ({
         body: {
-          bg: theme.colors.gray["100"],
+          backgroundImage: "background.jpg",
+          backgroundSize: "cover",
+          backgroundPosition: "0px -50px",
+          //   backgroundPosition: "center, center",
+          backgroundRepeat: "no-repeat",
+          //   width: "100%",
+          fontFamily: "Marmelad, sansSerif",
+          fontWeight: 400,
+          height: "100%",
         },
       }),
+      fonts: {
+        heading: "Marmelad, sansSerif",
+        fontWeight: 400,
+      },
     },
   }
 );
