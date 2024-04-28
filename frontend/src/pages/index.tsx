@@ -1,68 +1,117 @@
-import { Button } from "@chakra-ui/react";
-import Head from "next/head";
-import { useHttpClient } from "../../hooks/http-client";
+import { Box, Select, Text, Button } from "@chakra-ui/react";
 import { useState } from "react";
-import WithAction from "../../components/nav-bar/NavBar";
-import HomePage from "./homepage";
+import { useRouter } from "next/router";
 
-type Test = {
-  services: {
-    name: string;
-    age: string;
-    location: string;
-  }[];
+type service = {
+  name: string;
+  age: string;
+  location: string;
 };
 
-export default function Home() {
-  const [data, setData] = useState<Test | undefined>(undefined);
-  const [list, setList] = useState<any>([]);
+type Test = {
+  services: service[];
+};
 
-  const client = useHttpClient();
+export default function HomePage() {
+  const [car, setCar] = useState<string | undefined>(undefined);
+  const [location, setLocation] = useState<string | undefined>(undefined);
+  const router = useRouter();
 
-  const onClick = async () => {
-    const result = await client.get("");
-    console.log(await result.text());
+  const isSearchDisabled =
+    typeof location !== "string" || typeof car !== "string";
+
+  const cities = [
+    { location: "London" },
+    { location: "Birmingham" },
+    { location: "Manchester" },
+    { location: "York" },
+    { location: "Leeds" },
+    { location: "Coventry" },
+  ];
+  const carTypes = [
+    { car: "BMW" },
+    { car: "Mercedes" },
+    { car: "Volvo" },
+    { car: "Jeep" },
+    { car: "Range Rover" },
+    { car: "Ford" },
+    { car: "Lexus" },
+  ];
+
+  const onCarSelected = (event: { target: { value: any } }) => {
+    const selectedValue = event.target.value;
+    selectedValue === "" ? setCar(undefined) : setCar(selectedValue);
   };
 
-  const onClick2 = async () => {
-    const response = await client.get("about");
-    const data = (await response.json()) as Test;
-    setData(data);
+  const onLocationSelected = (event: { target: { value: any } }) => {
+    const selectedValue = event.target.value;
+    selectedValue === "" ? setLocation(undefined) : setLocation(selectedValue);
   };
 
-  const onClick4 = async () => {
-    const response = await client.post("filter", {
-      json: {
-        location: "london",
-      },
-    });
-    const data = (await response.json()) as Test;
-    setData(data);
-  };
-
-  const onClick3 = async () => {
-    const response = await client.post("add", {
-      json: {
-        name: "Liya" + Date.now(),
-        age: "22",
-      },
-    });
-
-    setList(await response.json());
+  const onSearchClicked = async () => {
+    router.push(`/services?location=${location}&car=${car}`);
   };
 
   return (
-    <>
-      <main>
-        {/* <Button onClick={onClick}>Click</Button> */}
-        {/* <Button onClick={onClick2}>Click</Button> */}
-        <Button onClick={onClick4}>Click</Button>
-        <b> TEXT</b>
-        {/* {data && <b>{data.json}</b>} */}
-        {JSON.stringify(data)}
-        <b>{data?.services[0].location}</b>
-      </main>
-      {/* <HomePage /> */}
-    </>
+    <Box
+      position={"absolute"}
+      textAlign={"center"}
+      margin={"auto"}
+      height={"80vh"}
+      width={"75%"}
+      top={"7rem"}
+      left={0}
+      right={0}
+      backgroundColor={"rgba(217, 217, 217, 0.8)"}
+      borderRadius={27}
+      //   alignItems={"center"}
+    >
+      <Box paddingTop={"15%"}>
+        <Text fontSize={56}>Search for your local repair...</Text>
+        <Box display={"flex"} justifyContent={"space-between"} padding={"40px"}>
+          <Select
+            placeholder="Select City"
+            size="lg"
+            bg={"#D9D9D9"}
+            borderColor={"#D9D9D9"}
+            width={"60%"}
+            fontSize={35}
+            height={"4rem"}
+            onChange={onLocationSelected}
+          >
+            {cities.map(({ location }) => {
+              return <option value={location}>{location}</option>;
+            })}
+          </Select>
+          <Select
+            placeholder="Select Car"
+            size="lg"
+            borderColor={"#D9D9D9"}
+            bg={"#D9D9D9"}
+            width={"38%"}
+            height={"4rem"}
+            fontSize={35}
+            alignItems={"center"}
+            onChange={onCarSelected}
+          >
+            {carTypes.map(({ car }) => {
+              return <option value={car}>{car}</option>;
+            })}
+          </Select>
+        </Box>
+        <Button
+          fontSize={35}
+          borderColor={"#D9D9D9"}
+          bg={"#89C6C2"}
+          width={"38%"}
+          height={"4rem"}
+          marginTop={"2rem"}
+          onClick={onSearchClicked}
+          isDisabled={isSearchDisabled}
+        >
+          Search
+        </Button>
+      </Box>
+    </Box>
   );
 }
