@@ -5,20 +5,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 cors = CORS(app, resources={r"*": {"origins": "*"}})
 
-@app.route('/')
-def home():
-    return 'Hello, World!'
-
-@app.route('/about')
-def about():
-    x ={
-        "name": "John the first",
-        "age": 30,
-        "city": "New York"
-    }
-    return jsonify(
-        x
-    )
+# db of services
 
 db = {"services":[
     {
@@ -1466,10 +1453,12 @@ db = {"services":[
     "booked": []}
 
 
+#returns list of services
 @app.route('/list', methods=['GET'])
 def list():
     return jsonify(db)
 
+#return service by id
 @app.route('/getbyid/<id>', methods=['GET'])
 def getbyid(id):
     service =  {
@@ -1478,6 +1467,7 @@ def getbyid(id):
     return jsonify(service["services"][0])
 
 
+#apply filters for location and prices
 @app.route('/filter', methods=['POST'])
 def filter():
     data=request.json
@@ -1486,21 +1476,16 @@ def filter():
     key: [item for item in value if item.get("location") == data["location"] and  item.get("price") in data["price"] and  item.get("stars") in data["stars"]]
     for key, value in db.items()
 }
-
-
-    # filtered_dict = {key: value for key, value in db.items() if value.get("location") == data["location"]}
     return jsonify(filtered_dict)
 
-
+# add boking
 @app.route('/add', methods=['POST'])
 def add():
     data = request.json
     db["booked"].append(data)
-    # data["id"] = str(int(time.time()))
-    # db[data["id"]] = data
-    # return jsonify(db)
     return jsonify(data["bookingId"])
 
+#get booking by id
 @app.route('/getbookingbyid/<id>', methods=['GET'])
 def getbookingbyid(id):
     booking =  {
@@ -1508,11 +1493,12 @@ def getbookingbyid(id):
         for key, value in db.items()}
     return jsonify(booking["booked"][0])
 
-
+#get all bookings
 @app.route('/getbookings', methods=['GET'])
 def getbookings():
     return jsonify(db["booked"])
 
+#update bookings
 @app.route('/update/<id>', methods=['POST'])
 def update(id):
 
@@ -1525,6 +1511,7 @@ def update(id):
     db["booked"][i] = data
     return jsonify(db["booked"])
 
+#delete booking
 @app.route('/remove/<id>', methods=['POST'])
 def remove(id): 
     for item in(db["booked"]):
