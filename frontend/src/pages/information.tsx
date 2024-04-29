@@ -13,6 +13,13 @@ import { MdLocationOn } from "react-icons/md";
 import { StarRenderer } from "../../components/services/star-renderer";
 import router from "next/router";
 
+const multiplier = {
+  "£": 1,
+  "££": 2,
+  "£££": 3,
+  "££££": 4,
+};
+
 export type Service = {
   address: string;
   id: string;
@@ -231,12 +238,24 @@ export default function Information({}) {
                           setBookingData({
                             ...bookingData,
                             repair: repair,
-                            cost: cost,
+                            cost:
+                              cost *
+                              multiplier[
+                                (service.price as "£") ||
+                                  "££" ||
+                                  "£££" ||
+                                  "££££"
+                              ],
                           })
                         }
                       >
                         <Text fontSize={25}>{repair}</Text>
-                        <Text fontSize={25}>{`£${cost}`}</Text>
+                        <Text fontSize={25}>{`£${
+                          cost *
+                          multiplier[
+                            (service.price as "£") || "££" || "£££" || "££££"
+                          ]
+                        }`}</Text>
                       </Button>
                     </Flex>
                   ))}
