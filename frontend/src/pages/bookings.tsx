@@ -1,20 +1,6 @@
-import {
-  Button,
-  Collapse,
-  Flex,
-  Heading,
-  Text,
-  Image,
-  Modal,
-  ModalContent,
-  ModalBody,
-  ModalCloseButton,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-} from "@chakra-ui/react";
+import { Button, Collapse, Flex, Heading, Text, Image } from "@chakra-ui/react";
 import { Layout } from "../../components/layout";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useHttpClient } from "../../hooks/http-client";
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import router from "next/router";
@@ -305,7 +291,6 @@ export default function Bookings({}) {
                             <Text>{serviceData.email}</Text>
                             <Flex marginTop={3} justifyContent={"right"}>
                               <Button
-                                // marginLeft={7}
                                 bg={"#89C6C2"}
                                 onClick={() =>
                                   onMoreInfoClicked(serviceData.id)

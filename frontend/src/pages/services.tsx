@@ -9,19 +9,12 @@ import {
   Stack,
   Checkbox,
 } from "@chakra-ui/react";
-import {
-  ChangeEvent,
-  MouseEventHandler,
-  ReactEventHandler,
-  useEffect,
-  useState,
-} from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useHttpClient } from "../../hooks/http-client";
 import { Layout } from "../../components/layout/Layout";
 import { useSearchParams } from "next/navigation";
 import { StarRenderer } from "../../components/services/star-renderer";
 import router from "next/router";
-import { StarIcon } from "@chakra-ui/icons";
 
 export type Service = {
   address: string;
@@ -54,7 +47,6 @@ export default function Services({}) {
     price: string[],
     stars: number[]
   ) => {
-    //await client.get('filter?location=${location}....')
     setIsLoading(true);
     const response = await client.post("filter", {
       json: {
@@ -71,7 +63,6 @@ export default function Services({}) {
   useEffect(() => {
     const costValues = cost.length === 0 ? priceArray : cost;
     const ratingValues = rating.length === 0 ? [1, 2, 3, 4, 5] : rating;
-    // getData(location, priceArray, [1, 2, 3, 4, 5]);
     getData(location, costValues, ratingValues);
     return () => {
       client.stop;
@@ -134,16 +125,12 @@ export default function Services({}) {
             placeholder="Sort"
             size="lg"
             border={"none"}
-            // bg={"#D9D9D9"}
             width={"35%"}
             height={"5vh"}
             fontSize={"3.5vh"}
             textAlign={"right"}
-            // top={2}
-            // paddingRight={"1rem"}
             marginLeft={"auto"}
             marginRight={"2rem"}
-            // alignItems={"right"}
             onChange={onSortChanged}
           >
             <option value={"distance_asc"}>Sort By: Distance Ascending</option>;
@@ -154,9 +141,7 @@ export default function Services({}) {
             <Flex
               backgroundColor={"#414540"}
               borderRadius={10}
-              // margin={5}
               textAlign={"center"}
-              // padding={5}
               alignItems={"center"}
               flexDirection={"column"}
               width={360}
@@ -178,7 +163,6 @@ export default function Services({}) {
                 margin={2}
                 width={340}
                 flexDirection={"column"}
-                // height={200}
               >
                 <Heading
                   margin={2}
@@ -207,7 +191,6 @@ export default function Services({}) {
                 margin={2}
                 width={340}
                 flexDirection={"column"}
-                // height={200}
               >
                 <Heading
                   margin={2}
@@ -239,13 +222,10 @@ export default function Services({}) {
             <Flex
               backgroundColor={"rgba(217, 217, 217)"}
               borderRadius={10}
-              // margin={5}
               textAlign={"center"}
-              // padding={5}
               justifyContent={"center"}
               width={850}
               height={500}
-              //   marginLeft={"auto"}
               marginRight={"2rem"}
               alignItems={"center"}
               overflow={"auto"}

@@ -93,7 +93,6 @@ export const EditModal: FC<{
     editedData.repair === "" ||
     editedData.time < "07:00" ||
     editedData.time > "20:00";
-  // ||new Date(editedData.date) < new Date();
   const onConfirm = () => {
     onConfirmClicked(
       serviceData,
@@ -104,24 +103,6 @@ export const EditModal: FC<{
       editedData.time
     );
   };
-
-  // const onConfirm = async (id: string) => {
-  //   const response = await client.post(`update/${id}`, {
-  //     json: {
-  //       serviceData: serviceData,
-  //       bookingId: bookingId,
-  //       date: editedData.date,
-  //       repair: editedData.repair,
-  //       cost: editedData.cost,
-  //       time: editedData.time,
-  //     },
-  //   });
-  //   const data = (await response.json()) as Booking[];
-  //   updateBooking(data);
-  //   onClose();
-  //   // // setBookings(data);
-  //   // setShowEditModal(false);
-  // };
   return (
     <Modal isOpen={isOpen} onClose={onClose} size={"lg"}>
       <ModalOverlay />

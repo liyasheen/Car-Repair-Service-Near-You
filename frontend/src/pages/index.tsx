@@ -8,10 +8,6 @@ type service = {
   location: string;
 };
 
-type Test = {
-  services: service[];
-};
-
 export default function HomePage() {
   const [car, setCar] = useState<string | undefined>(undefined);
   const [location, setLocation] = useState<string | undefined>(undefined);
@@ -64,7 +60,6 @@ export default function HomePage() {
       right={0}
       backgroundColor={"rgba(217, 217, 217, 0.8)"}
       borderRadius={27}
-      //   alignItems={"center"}
     >
       <Box paddingTop={"15%"}>
         <Text fontSize={56}>Search for your local repair...</Text>

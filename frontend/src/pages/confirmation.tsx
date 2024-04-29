@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Layout } from "../../components/layout";
 import { Flex, Heading, Icon, Text, Image } from "@chakra-ui/react";
 import { useSearchParams } from "next/navigation";
@@ -14,6 +14,8 @@ export type Service = {
   logo: string;
   price: string;
   stars: number;
+  phone: string;
+  email: string;
 };
 
 export type BookingDetails = {

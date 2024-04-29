@@ -1,6 +1,5 @@
 import { Button, Flex, Heading, Icon, Image, Text } from "@chakra-ui/react";
 import { Layout } from "../../components/layout";
-import { RiAccountCircleFill } from "react-icons/ri";
 
 export default function Account({}) {
   return (

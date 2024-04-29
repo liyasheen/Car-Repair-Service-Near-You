@@ -1,12 +1,7 @@
 import { useSearchParams } from "next/navigation";
 import { Layout } from "../../components/layout";
 import { useHttpClient } from "../../hooks/http-client";
-import {
-  FormEventHandler,
-  MouseEventHandler,
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 import { Button, Flex, Heading, Icon, Image, Text } from "@chakra-ui/react";
 import { EmailIcon, PhoneIcon } from "@chakra-ui/icons";
 import { MdLocationOn } from "react-icons/md";
@@ -206,7 +201,6 @@ export default function Information({}) {
                 textAlign={"center"}
                 justifyContent={"center"}
                 height={350}
-                // marginTop={3}
                 alignItems={"center"}
                 overflow={"auto"}
               >
@@ -215,15 +209,12 @@ export default function Information({}) {
                   height={"inherit"}
                   width={"100%"}
                   paddingTop={5}
-                  // margin={3}
                 >
                   {repairs.map(({ repair, cost }) => (
                     <Flex
                       justifyItems={"space-between"}
-                      // margin={3}
                       padding={2}
                       width={"100%"}
-                      // marginBottom={3}
                     >
                       <Button
                         width={"100%"}
