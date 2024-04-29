@@ -53,64 +53,61 @@ export default function Confirmation({}) {
   }
 
   return (
-    <Layout
-      isLoading={false}
-      children={
+    <Layout isLoading={false}>
+      <Flex
+        flexDirection={"column"}
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
+        <Flex>
+          <Icon
+            marginTop={10}
+            boxSize={200}
+            as={CiCircleCheck}
+            color={"#8BA356"}
+          />
+        </Flex>
+        <Heading marginTop={5} fontFamily={"Marmelad, sansSerif"}>
+          Booking Confirmed
+        </Heading>
+        <Text marginTop={5} fontSize={25}>
+          Thank you for booking with Car Repair Service Near You
+        </Text>
         <Flex
-          flexDirection={"column"}
-          justifyContent={"center"}
-          alignItems={"center"}
+          bg={"#414540"}
+          width={"95%"}
+          marginTop={5}
+          borderRadius={15}
+          justifyContent={"space-between"}
         >
-          <Flex>
-            <Icon
-              marginTop={10}
-              boxSize={200}
-              as={CiCircleCheck}
-              color={"#8BA356"}
-            />
-          </Flex>
-          <Heading marginTop={5} fontFamily={"Marmelad, sansSerif"}>
-            Booking Confirmed
-          </Heading>
-          <Text marginTop={5} fontSize={25}>
-            Thank you for booking with Car Repair Service Near You
-          </Text>
-          <Flex
-            bg={"#414540"}
-            width={"95%"}
-            marginTop={5}
+          <Image
+            src={confirmation.serviceData.logo}
+            boxSize={260}
             borderRadius={15}
-            justifyContent={"space-between"}
+            padding={2}
+          />
+          <Flex
+            bg={"#D9D9D9"}
+            margin={2}
+            width={"100%"}
+            borderRadius={15}
+            textAlign={"center"}
+            justifyContent={"center"}
+            flexDirection={"column"}
           >
-            <Image
-              src={confirmation.serviceData.logo}
-              boxSize={260}
-              borderRadius={15}
-              padding={2}
-            />
-            <Flex
-              bg={"#D9D9D9"}
-              margin={2}
-              width={"100%"}
-              borderRadius={15}
-              textAlign={"center"}
-              justifyContent={"center"}
-              flexDirection={"column"}
-            >
-              <Heading fontFamily={"Marmelad, sansSerif"} color={"black"}>
-                {confirmation.serviceData.name}
-              </Heading>
-              <Text
-                fontSize={30}
-                color={"#8BA356"}
-              >{`${confirmation.time} on ${confirmation.date}`}</Text>
-              <Text fontSize={25}>{confirmation.serviceData.address}</Text>
-              <Text fontSize={25}>{confirmation.serviceData.phone}</Text>
-              <Text fontSize={25}>{confirmation.serviceData.email}</Text>
-            </Flex>
+            <Heading fontFamily={"Marmelad, sansSerif"} color={"black"}>
+              {confirmation.serviceData.name}
+            </Heading>
+            <Text
+              fontSize={30}
+              color={"#8BA356"}
+            >{`${confirmation.time} on ${confirmation.date}`}</Text>
+            <Text fontSize={25}>{confirmation.serviceData.address}</Text>
+            <Text fontSize={25}>{confirmation.serviceData.phone}</Text>
+            <Text fontSize={25}>{confirmation.serviceData.email}</Text>
           </Flex>
         </Flex>
-      }
-    />
+      </Flex>
+    </Layout>
   );
 }

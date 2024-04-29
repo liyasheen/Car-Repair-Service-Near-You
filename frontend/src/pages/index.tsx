@@ -75,7 +75,11 @@ export default function HomePage() {
             onChange={onLocationSelected}
           >
             {cities.map(({ location }) => {
-              return <option value={location}>{location}</option>;
+              return (
+                <option key={location} value={location}>
+                  {location}
+                </option>
+              );
             })}
           </Select>
           <Select
@@ -90,7 +94,7 @@ export default function HomePage() {
             onChange={onCarSelected}
           >
             {carTypes.map(({ car }) => {
-              return <option value={car}>{car}</option>;
+              return <option key={car} value={car}>{car}</option>;
             })}
           </Select>
         </Box>

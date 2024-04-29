@@ -189,6 +189,7 @@ export const EditModal: FC<{
                 {repairs.map(({ repair, cost }) => {
                   return (
                     <option
+                      key={repair}
                       value={`${repair}, ${cost}`}
                     >{`${repair}, £${cost}`}</option>
                   );

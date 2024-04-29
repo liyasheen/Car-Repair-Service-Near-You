@@ -104,212 +104,207 @@ export default function Bookings({}) {
   }
 
   return (
-    <Layout
-      isLoading={false}
-      children={
-        <Flex flexDirection={"column"} padding={10}>
-          <Heading fontFamily={"Marmelad, sansSerif"} fontSize={55}>
-            My Bookings
-          </Heading>
-          <Flex flexDirection={"column"} paddingTop={5}>
-            <Button
-              bg={"#414540"}
-              marginTop={2}
-              display={"flex"}
-              padding={7}
-              fontSize={25}
-              justifyContent={"left"}
-              textColor={"#D9D9D9"}
-              width={"100%"}
-              onClick={() => {
-                setShowBookings(!showBookings);
-              }}
-            >
-              {showBookings ? <ChevronUpIcon /> : <ChevronDownIcon />} Upcoming
-              Bookings
-            </Button>
-            <Collapse in={showBookings} animateOpacity>
-              <Flex padding={3} mt={5} flexDirection={"column"}>
-                {upcomingBookings?.length === 0 ||
-                upcomingBookings === undefined ? (
-                  <Text fontSize={20}>No upcoming bookings</Text>
-                ) : (
-                  upcomingBookings?.map(
-                    ({ serviceData, bookingId, time, date, repair, cost }) => (
-                      <Flex
-                        width={"100%"}
+    <Layout isLoading={false}>
+      <Flex flexDirection={"column"} padding={10}>
+        <Heading fontFamily={"Marmelad, sansSerif"} fontSize={55}>
+          My Bookings
+        </Heading>
+        <Flex flexDirection={"column"} paddingTop={5}>
+          <Button
+            bg={"#414540"}
+            marginTop={2}
+            display={"flex"}
+            padding={7}
+            fontSize={25}
+            justifyContent={"left"}
+            textColor={"#D9D9D9"}
+            width={"100%"}
+            onClick={() => {
+              setShowBookings(!showBookings);
+            }}
+          >
+            {showBookings ? <ChevronUpIcon /> : <ChevronDownIcon />} Upcoming
+            Bookings
+          </Button>
+          <Collapse in={showBookings} animateOpacity>
+            <Flex padding={3} mt={5} flexDirection={"column"}>
+              {upcomingBookings?.length === 0 ||
+              upcomingBookings === undefined ? (
+                <Text fontSize={20}>No upcoming bookings</Text>
+              ) : (
+                upcomingBookings?.map(
+                  ({ serviceData, bookingId, time, date, repair, cost }) => (
+                    <Flex
+                      key={bookingId}
+                      width={"100%"}
+                      borderRadius={15}
+                      marginBottom={3}
+                      bg={"#D9D9D9"}
+                      borderBottom={"black"}
+                      padding={3}
+                    >
+                      <Image
+                        src={serviceData.logo}
+                        boxSize={"15vh"}
                         borderRadius={15}
-                        marginBottom={3}
-                        bg={"#D9D9D9"}
-                        borderBottom={"black"}
-                        padding={3}
-                      >
-                        <Image
-                          src={serviceData.logo}
-                          boxSize={"15vh"}
-                          borderRadius={15}
-                        />
-                        <Flex justifyContent={"space-between"} width={"100%"}>
-                          <Flex textAlign={"left"} flexDirection={"column"}>
-                            <Flex marginTop={3}>
-                              <Heading
-                                marginLeft={3}
-                                fontFamily={"Marmelad, sansSerif"}
-                              >
-                                {serviceData.name}
-                              </Heading>
-                              <Heading
-                                marginLeft={3}
-                                fontFamily={"Marmelad, sansSerif"}
-                                textColor={"#8BA356"}
-                              >{`${time} on ${date}`}</Heading>
-                            </Flex>
-                            <Text marginLeft={3} fontSize={20}>
-                              {`${repair}, £${cost}`}
-                            </Text>
-                            <Text marginLeft={3} fontSize={20}>
-                              {serviceData.address}
-                            </Text>
+                      />
+                      <Flex justifyContent={"space-between"} width={"100%"}>
+                        <Flex textAlign={"left"} flexDirection={"column"}>
+                          <Flex marginTop={3}>
+                            <Heading
+                              marginLeft={3}
+                              fontFamily={"Marmelad, sansSerif"}
+                            >
+                              {serviceData.name}
+                            </Heading>
+                            <Heading
+                              marginLeft={3}
+                              fontFamily={"Marmelad, sansSerif"}
+                              textColor={"#8BA356"}
+                            >{`${time} on ${date}`}</Heading>
                           </Flex>
-                          <Flex
-                            flexDirection={"column"}
-                            fontSize={20}
-                            textAlign={"right"}
-                          >
-                            <Text>{serviceData.phone}</Text>
-                            <Text>{serviceData.email}</Text>
-                            <Flex marginTop={3}>
-                              <Button
-                                marginLeft={2}
-                                bg={"#414540"}
-                                onClick={() => setShowEditModal(!showEditModal)}
-                              >
-                                Edit
-                              </Button>
-                              <Button
-                                marginLeft={2}
-                                bg={"#4C80B0"}
-                                onClick={() => onCancelClicked(bookingId)}
-                              >
-                                Cancel Booking
-                              </Button>
-                              <Button
-                                marginLeft={2}
-                                bg={"#89C6C2"}
-                                onClick={() =>
-                                  onMoreInfoClicked(serviceData.id)
-                                }
-                              >
-                                More Info
-                              </Button>
-                            </Flex>
-                          </Flex>
+                          <Text marginLeft={3} fontSize={20}>
+                            {`${repair}, £${cost}`}
+                          </Text>
+                          <Text marginLeft={3} fontSize={20}>
+                            {serviceData.address}
+                          </Text>
                         </Flex>
-                        <EditModal
-                          serviceData={serviceData}
-                          isOpen={showEditModal}
-                          onClose={() => setShowEditModal(false)}
-                          repair={repair}
-                          time={time}
-                          cost={cost}
-                          date={date}
-                          onConfirmClicked={onConfirmClicked}
-                          bookingId={bookingId}
-                        />
-                      </Flex>
-                    )
-                  )
-                )}
-              </Flex>
-            </Collapse>
-          </Flex>
-          <Flex flexDirection={"column"} paddingTop={5}>
-            <Button
-              bg={"#414540"}
-              marginTop={2}
-              display={"flex"}
-              padding={7}
-              fontSize={25}
-              justifyContent={"left"}
-              textColor={"#D9D9D9"}
-              width={"100%"}
-              onClick={() => {
-                setShowPastBookings(!showPastBookings);
-              }}
-            >
-              {showPastBookings ? <ChevronUpIcon /> : <ChevronDownIcon />}
-              Past Bookings
-            </Button>
-            <Collapse in={showPastBookings} animateOpacity>
-              <Flex padding={3} mt={5} flexDirection={"column"}>
-                {pastBookings?.length === 0 || pastBookings === undefined ? (
-                  <Text fontSize={20}>No past bookings</Text>
-                ) : (
-                  pastBookings?.map(
-                    ({ serviceData, bookingId, time, date, repair, cost }) => (
-                      <Flex
-                        width={"100%"}
-                        borderRadius={15}
-                        marginBottom={3}
-                        bg={"#D9D9D9"}
-                        borderBottom={"black"}
-                        padding={3}
-                      >
-                        <Image
-                          src={serviceData.logo}
-                          boxSize={"15vh"}
-                          borderRadius={15}
-                        />
-                        <Flex justifyContent={"space-between"} width={"100%"}>
-                          <Flex textAlign={"left"} flexDirection={"column"}>
-                            <Flex marginTop={3}>
-                              <Heading
-                                marginLeft={3}
-                                fontFamily={"Marmelad, sansSerif"}
-                              >
-                                {serviceData.name}
-                              </Heading>
-                              <Heading
-                                marginLeft={3}
-                                fontFamily={"Marmelad, sansSerif"}
-                                textColor={"#8BA356"}
-                              >{`${time} on ${date}`}</Heading>
-                            </Flex>
-                            <Text marginLeft={3} fontSize={20}>
-                              {`${repair}, £${cost}`}
-                            </Text>
-                            <Text marginLeft={3} fontSize={20}>
-                              {serviceData.address}
-                            </Text>
-                          </Flex>
-                          <Flex
-                            flexDirection={"column"}
-                            fontSize={20}
-                            textAlign={"right"}
-                          >
-                            <Text>{serviceData.phone}</Text>
-                            <Text>{serviceData.email}</Text>
-                            <Flex marginTop={3} justifyContent={"right"}>
-                              <Button
-                                bg={"#89C6C2"}
-                                onClick={() =>
-                                  onMoreInfoClicked(serviceData.id)
-                                }
-                              >
-                                More Info
-                              </Button>
-                            </Flex>
+                        <Flex
+                          flexDirection={"column"}
+                          fontSize={20}
+                          textAlign={"right"}
+                        >
+                          <Text>{serviceData.phone}</Text>
+                          <Text>{serviceData.email}</Text>
+                          <Flex marginTop={3}>
+                            <Button
+                              marginLeft={2}
+                              bg={"#414540"}
+                              onClick={() => setShowEditModal(!showEditModal)}
+                            >
+                              Edit
+                            </Button>
+                            <Button
+                              marginLeft={2}
+                              bg={"#4C80B0"}
+                              onClick={() => onCancelClicked(bookingId)}
+                            >
+                              Cancel Booking
+                            </Button>
+                            <Button
+                              marginLeft={2}
+                              bg={"#89C6C2"}
+                              onClick={() => onMoreInfoClicked(serviceData.id)}
+                            >
+                              More Info
+                            </Button>
                           </Flex>
                         </Flex>
                       </Flex>
-                    )
+                      <EditModal
+                        serviceData={serviceData}
+                        isOpen={showEditModal}
+                        onClose={() => setShowEditModal(false)}
+                        repair={repair}
+                        time={time}
+                        cost={cost}
+                        date={date}
+                        onConfirmClicked={onConfirmClicked}
+                        bookingId={bookingId}
+                      />
+                    </Flex>
                   )
-                )}
-              </Flex>
-            </Collapse>
-          </Flex>
+                )
+              )}
+            </Flex>
+          </Collapse>
         </Flex>
-      }
-    />
+        <Flex flexDirection={"column"} paddingTop={5}>
+          <Button
+            bg={"#414540"}
+            marginTop={2}
+            display={"flex"}
+            padding={7}
+            fontSize={25}
+            justifyContent={"left"}
+            textColor={"#D9D9D9"}
+            width={"100%"}
+            onClick={() => {
+              setShowPastBookings(!showPastBookings);
+            }}
+          >
+            {showPastBookings ? <ChevronUpIcon /> : <ChevronDownIcon />}
+            Past Bookings
+          </Button>
+          <Collapse in={showPastBookings} animateOpacity>
+            <Flex padding={3} mt={5} flexDirection={"column"}>
+              {pastBookings?.length === 0 || pastBookings === undefined ? (
+                <Text fontSize={20}>No past bookings</Text>
+              ) : (
+                pastBookings?.map(
+                  ({ serviceData, bookingId, time, date, repair, cost }) => (
+                    <Flex
+                      key={bookingId}
+                      width={"100%"}
+                      borderRadius={15}
+                      marginBottom={3}
+                      bg={"#D9D9D9"}
+                      borderBottom={"black"}
+                      padding={3}
+                    >
+                      <Image
+                        src={serviceData.logo}
+                        boxSize={"15vh"}
+                        borderRadius={15}
+                      />
+                      <Flex justifyContent={"space-between"} width={"100%"}>
+                        <Flex textAlign={"left"} flexDirection={"column"}>
+                          <Flex marginTop={3}>
+                            <Heading
+                              marginLeft={3}
+                              fontFamily={"Marmelad, sansSerif"}
+                            >
+                              {serviceData.name}
+                            </Heading>
+                            <Heading
+                              marginLeft={3}
+                              fontFamily={"Marmelad, sansSerif"}
+                              textColor={"#8BA356"}
+                            >{`${time} on ${date}`}</Heading>
+                          </Flex>
+                          <Text marginLeft={3} fontSize={20}>
+                            {`${repair}, £${cost}`}
+                          </Text>
+                          <Text marginLeft={3} fontSize={20}>
+                            {serviceData.address}
+                          </Text>
+                        </Flex>
+                        <Flex
+                          flexDirection={"column"}
+                          fontSize={20}
+                          textAlign={"right"}
+                        >
+                          <Text>{serviceData.phone}</Text>
+                          <Text>{serviceData.email}</Text>
+                          <Flex marginTop={3} justifyContent={"right"}>
+                            <Button
+                              bg={"#89C6C2"}
+                              onClick={() => onMoreInfoClicked(serviceData.id)}
+                            >
+                              More Info
+                            </Button>
+                          </Flex>
+                        </Flex>
+                      </Flex>
+                    </Flex>
+                  )
+                )
+              )}
+            </Flex>
+          </Collapse>
+        </Flex>
+      </Flex>
+    </Layout>
   );
 }

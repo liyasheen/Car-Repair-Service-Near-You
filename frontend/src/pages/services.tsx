@@ -106,202 +106,197 @@ export default function Services({}) {
   };
 
   return (
-    <Layout
-      isLoading={false}
-      children={
-        <Box>
+    <Layout isLoading={false}>
+      <Box>
+        <Flex
+          backgroundColor={"rgba(217, 217, 217)"}
+          borderRadius={10}
+          margin={5}
+          padding={5}
+          justifyContent={"left"}
+        >
+          <Heading fontFamily={"Marmelad, sansSerif"}>
+            {`Search results for ${car} services in ${location}`}
+          </Heading>
+        </Flex>
+        <Select
+          placeholder="Sort"
+          size="lg"
+          border={"none"}
+          width={"35%"}
+          height={"5vh"}
+          fontSize={"3.5vh"}
+          textAlign={"right"}
+          marginLeft={"auto"}
+          marginRight={"2rem"}
+          onChange={onSortChanged}
+        >
+          <option value={"distance_asc"}>Sort By: Distance Ascending</option>;
+          <option value={"disance_desc"}>Sort By: Distance Descending</option>;
+        </Select>
+        <Flex justifyContent={"space-between"}>
           <Flex
-            backgroundColor={"rgba(217, 217, 217)"}
+            backgroundColor={"#414540"}
             borderRadius={10}
-            margin={5}
-            padding={5}
-            justifyContent={"left"}
+            textAlign={"center"}
+            alignItems={"center"}
+            flexDirection={"column"}
+            width={360}
+            height={500}
+            marginLeft={"2rem"}
           >
-            <Heading fontFamily={"Marmelad, sansSerif"}>
-              {`Search results for ${car} services in ${location}`}
+            <Heading
+              fontFamily={"Marmelad, sansSerif"}
+              color={"#FFFDFD"}
+              paddingTop={3}
+              paddingBottom={3}
+            >
+              Filters
             </Heading>
-          </Flex>
-          <Select
-            placeholder="Sort"
-            size="lg"
-            border={"none"}
-            width={"35%"}
-            height={"5vh"}
-            fontSize={"3.5vh"}
-            textAlign={"right"}
-            marginLeft={"auto"}
-            marginRight={"2rem"}
-            onChange={onSortChanged}
-          >
-            <option value={"distance_asc"}>Sort By: Distance Ascending</option>;
-            <option value={"disance_desc"}>Sort By: Distance Descending</option>
-            ;
-          </Select>
-          <Flex justifyContent={"space-between"}>
+
             <Flex
-              backgroundColor={"#414540"}
+              backgroundColor={"rgba(217, 217, 217)"}
               borderRadius={10}
-              textAlign={"center"}
-              alignItems={"center"}
+              margin={2}
+              width={340}
               flexDirection={"column"}
-              width={360}
-              height={500}
-              marginLeft={"2rem"}
             >
               <Heading
+                margin={2}
                 fontFamily={"Marmelad, sansSerif"}
-                color={"#FFFDFD"}
-                paddingTop={3}
-                paddingBottom={3}
+                textAlign={"left"}
+                fontSize={30}
               >
-                Filters
+                Cost
               </Heading>
-
-              <Flex
-                backgroundColor={"rgba(217, 217, 217)"}
-                borderRadius={10}
-                margin={2}
-                width={340}
-                flexDirection={"column"}
-              >
-                <Heading
-                  margin={2}
-                  fontFamily={"Marmelad, sansSerif"}
-                  textAlign={"left"}
-                  fontSize={30}
-                >
-                  Cost
-                </Heading>
-                <Stack spacing={2} direction="column" margin={2}>
-                  {priceArray.map((cost) => (
-                    <Checkbox
-                      size={"lg"}
-                      key={cost}
-                      value={cost}
-                      onChange={onCostChecked}
-                    >
-                      {cost}
-                    </Checkbox>
-                  ))}
-                </Stack>
-              </Flex>
-              <Flex
-                backgroundColor={"rgba(217, 217, 217)"}
-                borderRadius={10}
-                margin={2}
-                width={340}
-                flexDirection={"column"}
-              >
-                <Heading
-                  margin={2}
-                  fontFamily={"Marmelad, sansSerif"}
-                  textAlign={"left"}
-                  fontSize={30}
-                >
-                  Rating
-                </Heading>
-                <Stack spacing={2} direction="column" margin={2}>
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <Checkbox
-                      size={"lg"}
-                      key={star}
-                      value={star}
-                      onChange={onRatingChecked}
-                    >
-                      <StarRenderer
-                        key={star}
-                        color={"black"}
-                        stars={star}
-                        size={5}
-                      />
-                    </Checkbox>
-                  ))}
-                </Stack>
-              </Flex>
+              <Stack spacing={2} direction="column" margin={2}>
+                {priceArray.map((cost) => (
+                  <Checkbox
+                    size={"lg"}
+                    key={cost}
+                    value={cost}
+                    onChange={onCostChecked}
+                  >
+                    {cost}
+                  </Checkbox>
+                ))}
+              </Stack>
             </Flex>
             <Flex
               backgroundColor={"rgba(217, 217, 217)"}
               borderRadius={10}
-              textAlign={"center"}
-              justifyContent={"center"}
-              width={850}
-              height={500}
-              marginRight={"2rem"}
-              alignItems={"center"}
-              overflow={"auto"}
+              margin={2}
+              width={340}
+              flexDirection={"column"}
             >
-              {data.services.length === 0 ? (
-                <Flex justifyContent={"center"}>
-                  <Heading fontFamily={"Marmelad, sansSerif"}>
-                    No results
-                  </Heading>
-                </Flex>
-              ) : (
-                <Flex height={"inherit"} flexDirection={"column"}>
-                  {data.services.map((x) => (
-                    <Flex
-                      backgroundColor={"#414540"}
-                      borderRadius={10}
-                      margin={2}
-                      width={825}
-                      height={200}
-                    >
-                      <Image
-                        src={x.logo}
-                        boxSize={200}
-                        borderRadius={15}
-                        padding={2}
-                      />
-                      <Flex
-                        flexDirection={"column"}
-                        textAlign={"left"}
-                        paddingLeft={3}
-                        width={"100%"}
-                      >
-                        <Heading
-                          fontFamily={"Marmelad, sansSerif"}
-                          color={"#FFFDFD"}
-                          paddingTop={3}
-                          paddingBottom={3}
-                        >
-                          {x.name}
-                        </Heading>
-                        <Text
-                          color={"#FFFDFD"}
-                          fontSize={22}
-                        >{`${x.distance} miles away, ${x.price}`}</Text>
-                        <Text color={"#FFFDFD"} fontSize={22}>
-                          {x.address}
-                        </Text>
-                        <Flex
-                          justifyContent={"space-between"}
-                          alignItems={"flex-end"}
-                        >
-                          <StarRenderer
-                            color={"#BBAB19"}
-                            stars={x.stars}
-                            size={12}
-                          />
-                          <Button
-                            borderColor={"#89C6C2"}
-                            bg={"#89C6C2"}
-                            right={3}
-                            fontSize={20}
-                            id={x.id}
-                            onClick={() => onMoreInfoClicked(x.id)}
-                          >
-                            More Info
-                          </Button>
-                        </Flex>
-                      </Flex>
-                    </Flex>
-                  ))}
-                </Flex>
-              )}
+              <Heading
+                margin={2}
+                fontFamily={"Marmelad, sansSerif"}
+                textAlign={"left"}
+                fontSize={30}
+              >
+                Rating
+              </Heading>
+              <Stack spacing={2} direction="column" margin={2}>
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <Checkbox
+                    size={"lg"}
+                    key={star}
+                    value={star}
+                    onChange={onRatingChecked}
+                  >
+                    <StarRenderer
+                      key={star}
+                      color={"black"}
+                      stars={star}
+                      size={5}
+                    />
+                  </Checkbox>
+                ))}
+              </Stack>
             </Flex>
           </Flex>
-        </Box>
-      }
-    />
+          <Flex
+            backgroundColor={"rgba(217, 217, 217)"}
+            borderRadius={10}
+            textAlign={"center"}
+            justifyContent={"center"}
+            width={850}
+            height={500}
+            marginRight={"2rem"}
+            alignItems={"center"}
+            overflow={"auto"}
+          >
+            {data.services.length === 0 ? (
+              <Flex justifyContent={"center"}>
+                <Heading fontFamily={"Marmelad, sansSerif"}>No results</Heading>
+              </Flex>
+            ) : (
+              <Flex height={"inherit"} flexDirection={"column"}>
+                {data.services.map((x) => (
+                  <Flex
+                    backgroundColor={"#414540"}
+                    borderRadius={10}
+                    margin={2}
+                    width={825}
+                    height={200}
+                    key={x.id}
+                  >
+                    <Image
+                      src={x.logo}
+                      boxSize={200}
+                      borderRadius={15}
+                      padding={2}
+                    />
+                    <Flex
+                      flexDirection={"column"}
+                      textAlign={"left"}
+                      paddingLeft={3}
+                      width={"100%"}
+                    >
+                      <Heading
+                        fontFamily={"Marmelad, sansSerif"}
+                        color={"#FFFDFD"}
+                        paddingTop={3}
+                        paddingBottom={3}
+                      >
+                        {x.name}
+                      </Heading>
+                      <Text
+                        color={"#FFFDFD"}
+                        fontSize={22}
+                      >{`${x.distance} miles away, ${x.price}`}</Text>
+                      <Text color={"#FFFDFD"} fontSize={22}>
+                        {x.address}
+                      </Text>
+                      <Flex
+                        justifyContent={"space-between"}
+                        alignItems={"flex-end"}
+                      >
+                        <StarRenderer
+                          color={"#BBAB19"}
+                          stars={x.stars}
+                          size={12}
+                        />
+                        <Button
+                          borderColor={"#89C6C2"}
+                          bg={"#89C6C2"}
+                          right={3}
+                          fontSize={20}
+                          id={x.id}
+                          onClick={() => onMoreInfoClicked(x.id)}
+                        >
+                          More Info
+                        </Button>
+                      </Flex>
+                    </Flex>
+                  </Flex>
+                ))}
+              </Flex>
+            )}
+          </Flex>
+        </Flex>
+      </Box>
+    </Layout>
   );
 }
