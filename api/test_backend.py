@@ -1,12 +1,13 @@
-# tests/test_list.py
 import requests
 
+# tests that a list of services is returned
 def test_list():
     response = requests.get("http://127.0.0.1:5000/list")
     assert response.status_code == 200
     services = response.json()
     assert isinstance(services, dict)
 
+# tests that a service with the matching id is returned
 def test_getbyid():
     service_id = "1"  
     response = requests.get(f"http://127.0.0.1:5000/getbyid/{service_id}")
@@ -14,6 +15,7 @@ def test_getbyid():
     service = response.json()
     assert service["id"] == service_id
 
+#tests that the list of services returned match the search criteria
 def test_filter():
     payload = {
         "location": "London", 
@@ -29,6 +31,7 @@ def test_filter():
     assert all(service["stars"] == 3 or service["stars"] == 4 for service in filtered_services["services"])
     assert all(service["price"] == "£" or service["price"] == "££" for service in filtered_services["services"])
 
+#tests that the booking is added to the database
 def test_add():
     payload = {
     "serviceData": {
@@ -54,6 +57,7 @@ def test_add():
     booking_id = response.json()
     assert booking_id == payload["bookingId"]
 
+#tests that the booking with the correct id is returned
 def test_getbookingbyid():
     booking_id = "2024-06-1918:06Brake Pad Replacement"
     response = requests.get(f"http://127.0.0.1:5000/getbookingbyid/{booking_id}")
@@ -61,12 +65,14 @@ def test_getbookingbyid():
     booking = response.json()
     assert booking["bookingId"] == booking_id
 
+#tests that all bookings are returned
 def test_getbookings():
     response = requests.get("http://127.0.0.1:5000/getbookings")
     assert response.status_code == 200
     bookings = response.json()
     assert isinstance(bookings, list)
 
+#tests that updates the booking information with new information
 def test_update():
     booking_id = "2024-06-1918:06Brake Pad Replacement" 
     payload ={
@@ -95,6 +101,7 @@ def test_update():
     assert (booking["time"] == "16:00" for booking in updated_booking)
     assert (booking["repair"] == "Oil Change" for booking in updated_booking)
 
+#tests that removes booking from database - cancels bookings
 def test_remove():
     booking_id = "2024-06-1918:06Brake Pad Replacement" 
     response = requests.post(f"http://127.0.0.1:5000/remove/{booking_id}")
